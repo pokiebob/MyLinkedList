@@ -51,16 +51,46 @@ public class MyLinkedList {
 				curNode = curNode.getNext();
 			}
 			newNode.setPrev(curNode);
-			if (index < size) {
-				newNode.setNext(curNode.getNext());
-				curNode.getNext().setPrev(newNode);
-			}
+			newNode.setNext(curNode.getNext());
+			curNode.getNext().setPrev(newNode);
 			curNode.setNext(newNode);
 		}
 		size++;
 	}
 
+	public String remove(int index) {
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException("index" + index + "not within range");
+		}
+		Node curNode;
+
+		if (index == 0) {
+			curNode = start;
+			start = start.getNext();
+			start.setPrev(null);
+		} else if (index == size - 1) {
+			curNode = end;
+			end = end.getPrev();
+			end.setNext(null);
+		} else {
+			curNode = start;
+
+			for (int i = 1; i < index; i++) {
+				curNode = curNode.getNext();
+			}
+			curNode.setNext(curNode.getNext().getNext());
+			
+			curNode.getNext().setPrev(curNode);
+		}
+		size--;
+		return curNode.getValue();
+
+	}
+
 	public String get(int index) {
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException("index" + index + "not within range");
+		}
 		Node curNode = start;
 		for (int i = 1; i <= index; i++) {
 			curNode = curNode.getNext();
@@ -69,6 +99,9 @@ public class MyLinkedList {
 	}
 
 	public String set(int index, String value) {
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException("index" + index + "not within range");
+		}
 		Node curNode = start;
 		for (int i = 1; i <= index; i++) {
 			curNode = curNode.getNext();
@@ -119,6 +152,13 @@ public class MyLinkedList {
 		ll.add(5, "f");
 		System.out.println(ll);
 		System.out.println(ll.set(3, "g"));
+		System.out.println(ll);
+
+		ll.remove(0);
+		System.out.println(ll);
+		ll.remove(4);
+		System.out.println(ll);
+		ll.remove(2);
 		System.out.println(ll);
 
 
