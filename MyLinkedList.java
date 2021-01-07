@@ -66,7 +66,13 @@ public class MyLinkedList {
 	}
 
 	public String set(int index, String value) {
-		return "some value";
+		Node curNode = start;
+		for (int i = 1; i <= index; i++) {
+			curNode = curNode.getNext();
+		}
+		String prevValue = curNode.getValue();
+		curNode.setValue(value);
+		return prevValue;
 	}
 
 	public String toString() {
@@ -97,6 +103,8 @@ public class MyLinkedList {
 		ll.add(0, "e");
 		System.out.println(ll);
 		ll.add(5, "f");
+		System.out.println(ll);
+		System.out.println(ll.set(3, "g"));
 		System.out.println(ll);
 
 
