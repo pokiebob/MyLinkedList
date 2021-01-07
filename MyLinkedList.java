@@ -33,30 +33,36 @@ public class MyLinkedList {
 
 	public void add(int index, String value) {
 		Node newNode = new Node(value);
-
-
-
 		if (index == 0) {
 			newNode.setNext(start);
 			start.setPrev(newNode);
 			start = newNode;
-		}
-		Node curNode = start;
+		} else if (index == size) {
+			end.setNext(newNode);
+			newNode.setPrev(end);
+			end = newNode;
+		} else {
+			Node curNode = start;
 
-		for (int i = 0; i < index; i++) {
-			curNode = curNode.getNext();
+			for (int i = 1; i < index; i++) {
+				curNode = curNode.getNext();
+			}
+			newNode.setPrev(curNode);
+			if (index < size) {
+				newNode.setNext(curNode.getNext());
+				curNode.getNext().setPrev(newNode);
+			}
+			curNode.setNext(newNode);
 		}
-		newNode.setPrev(curNode);
-		if (index < size) {
-			newNode.setNext(curNode.getNext());
-			curNode.getNext().setPrev(newNode);
-		}
-		curNode.setNext(newNode);
 		size++;
 	}
 
 	public String get(int index) {
-		return "some value";
+		Node curNode = start;
+		for (int i = 1; i <= index; i++) {
+			curNode = curNode.getNext();
+		}
+		return curNode.getValue();
 	}
 
 	public String set(int index, String value) {
@@ -65,7 +71,13 @@ public class MyLinkedList {
 
 	public String toString() {
 		String s = "[";
-		return "toString";
+		Node curNode = start;
+		for (int i = 0; i < size - 1; i++) {
+			s += curNode.getValue() + ", ";
+			curNode = curNode.getNext();
+		}
+		s += curNode.getValue() + "]";
+		return s;
 	}
 	//Any helper method that returns a Node object MUST BE PRIVATE!
 
@@ -78,12 +90,14 @@ public class MyLinkedList {
 		ll.add("a");
 		ll.add("b");
 		ll.add("c");
-		System.out.println(ll.size());
+		System.out.println(ll);
 
 		ll.add(1, "d");
+		System.out.println(ll);
 		ll.add(0, "e");
+		System.out.println(ll);
 		ll.add(5, "f");
-		System.out.println(ll.size());
+		System.out.println(ll);
 
 
 	}
