@@ -32,6 +32,9 @@ public class MyLinkedList {
 
 
 	public void add(int index, String value) {
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException("index" + index + "not within range");
+		}
 		Node newNode = new Node(value);
 		if (index == 0) {
 			newNode.setNext(start);
@@ -81,6 +84,17 @@ public class MyLinkedList {
 		for (int i = 0; i < size - 1; i++) {
 			s += curNode.getValue() + ", ";
 			curNode = curNode.getNext();
+		}
+		s += curNode.getValue() + "]";
+		return s;
+	}
+
+	public String toStringReversed() {
+		String s = "[";
+		Node curNode = end;
+		for (int i = 0; i < size - 1; i++) {
+			s += curNode.getValue() + ", ";
+			curNode = curNode.getPrev();
 		}
 		s += curNode.getValue() + "]";
 		return s;
