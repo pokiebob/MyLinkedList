@@ -9,11 +9,11 @@ public class Node {
 		next = null;
 	}
 
-	public String getData() {
+	public String getValue() {
 		return data;
 	}
 
-	public void setData(String newValue) {
+	public void setValue(String newValue) {
 		data = newValue;
 	}
 
