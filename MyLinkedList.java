@@ -112,6 +112,9 @@ public class MyLinkedList {
 	}
 
 	public String toString() {
+		if (size == 0) {
+			return "[]";
+		}
 		String s = "[";
 		Node curNode = start;
 		for (int i = 0; i < size - 1; i++) {
@@ -123,6 +126,9 @@ public class MyLinkedList {
 	}
 
 	public String toStringReversed() {
+		if (size == 0) {
+			return "[]";
+		}
 		String s = "[";
 		Node curNode = end;
 		for (int i = 0; i < size - 1; i++) {
@@ -132,7 +138,20 @@ public class MyLinkedList {
 		s += curNode.getValue() + "]";
 		return s;
 	}
-	//Any helper method that returns a Node object MUST BE PRIVATE!
+
+	public void extend(MyLinkedList other) {
+		end.setNext(other.start);
+		other.start.setPrev(end);
+		end = other.end;
+		size += other.size();
+		other.clear();
+ 	}
+
+ 	public void clear() {
+ 		size = 0;
+ 		start = null;
+ 		end = null;
+ 	}
 
 	public static void main(String[] args) {
 
@@ -160,6 +179,25 @@ public class MyLinkedList {
 		System.out.println(ll);
 		ll.remove(2);
 		System.out.println(ll);
+
+		MyLinkedList a = new MyLinkedList();
+		MyLinkedList b = new MyLinkedList();
+		for(int i = 0; i < 10; i++){
+		  if(i < 5){
+		    a.add(i+"");
+		  }else{
+		    b.add(i+"");
+		  }
+		}
+		System.out.println();
+		System.out.println("A:"+a+a.size());
+		System.out.println("B:"+b+b.size());
+
+		a.extend(b);
+		System.out.println("A:"+a+a.size());
+		System.out.println("B:"+b+b.size());
+		System.out.println("A reversed:"+a.toStringReversed()+a.size());
+		System.out.println("B reversed:"+b.toStringReversed()+b.size());
 
 
 	}
